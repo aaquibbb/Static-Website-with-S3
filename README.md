@@ -56,4 +56,4 @@ terraform destroy
 ## 🔗 Connect with Me
 LinkedIn: https://www.linkedin.com/in/aaquibparvez/
 
-Medium Article: 
+Medium Article: https://medium.com/@aaquib.parvez07/terraform-vs-the-console-why-i-automate-even-simple-s3-websites-a5976ab3c46b
