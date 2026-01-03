@@ -29,7 +29,7 @@ Instead of manually configuring buckets and policies via the AWS Console, this p
 
 ```bash
 ### Step 1: Clone the Repository
-git clone [https://github.com/aaquibbb/Static-Website-with-S3.git](https://github.com/aaquibbb/Static-Website-with-S3.git)
+git clone https://github.com/aaquibbb/Static-Website-with-S3.git
 cd Static-Website-with-S3
 
 ### Step 2: Initialise Terraform
