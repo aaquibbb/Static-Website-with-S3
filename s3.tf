@@ -45,13 +45,13 @@ resource "aws_s3_object" "index_html" {
   bucket       = aws_s3_bucket.website.id
   key          = "index.html"
   source       = "index.html"
-  content_type = "text/html"  # <--- ADD THIS
+  content_type = "text/html"  
 }
 
 resource "aws_s3_object" "error_html" {
   bucket       = aws_s3_bucket.website.id
   key          = "error.html"
   source       = "error.html"
-  content_type = "text/html"  # <--- ADD THIS
+  content_type = "text/html"  
 }
 
