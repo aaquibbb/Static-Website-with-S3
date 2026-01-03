@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NODE STATUS // ONLINE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #050a14;
+            --neon-cyan: #00fff2;
+            --neon-pink: #d800ff;
+            --text-primary: #e0f7ff;
+            --text-secondary: #8a9ba8;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Share Tech Mono', monospace; /* The "data" look */
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            /* Creating the futuristic grid background purely with CSS gradients */
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(0, 255, 242, 0.05) 0%, transparent 60%),
+                linear-gradient(rgba(0, 255, 242, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 242, 0.05) 1px, transparent 1px);
+            background-size: 100% 100%, 40px 40px, 40px 40px;
+        }
+
+        /* CRT Scanline Overlay effect */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: repeating-linear-gradient(0deg, rgba(0,0,0,0.15) 0px, rgba(0,0,0,0.15) 1px, transparent 1px, transparent 2px);
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .container {
+            position: relative;
+            text-align: center;
+            max-width: 650px;
+            padding: 3rem;
+            border: 1px solid rgba(0, 255, 242, 0.3);
+            /* Glassmorphism effect */
+            background: rgba(5, 10, 20, 0.7);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 30px rgba(0, 255, 242, 0.2), inset 0 0 20px rgba(0, 255, 242, 0.05);
+            animation: container-glow 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes container-glow {
+            from { box-shadow: 0 0 20px rgba(0, 255, 242, 0.2); border-color: rgba(0, 255, 242, 0.3); }
+            to { box-shadow: 0 0 40px rgba(0, 255, 242, 0.4), 0 0 10px rgba(216, 0, 255, 0.3); border-color: rgba(0, 255, 242, 0.6); }
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif; /* The header font */
+            font-size: 3rem;
+            margin: 0.5rem 0 1.5rem 0;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            /* Gradient text effect */
+            background: linear-gradient(90deg, var(--neon-cyan), #ffffff, var(--neon-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(0, 255, 242, 0.5);
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            background-color: rgba(0, 255, 242, 0.1);
+            color: var(--neon-cyan);
+            padding: 4px 12px;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            border: 1px solid var(--neon-cyan);
+            margin-bottom: 1.5rem;
+            box-shadow: 0 0 10px rgba(0, 255, 242, 0.3);
+        }
+
+        .blinking-cursor {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: var(--neon-cyan);
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: blink 1s step-start infinite;
+        }
+
+        @keyframes blink { 50% { opacity: 0; } }
+
+        p.intro-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            border-left: 2px solid var(--neon-pink);
+            padding-left: 15px;
+            text-align: left;
+        }
+
+        /* The data card */
+        .terminal-card {
+            background-color: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(216, 0, 255, 0.3); /* Pink border */
+            padding: 20px;
+            text-align: left;
+            margin-top: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* A moving light scanner effect across the card */
+        .terminal-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(216, 0, 255, 0.2), transparent);
+            animation: scanner 6s linear infinite;
+        }
+
+        @keyframes scanner { 0% { left: -100%; } 100% { left: 200%; } }
+
+        .data-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            border-bottom: 1px dashed rgba(0, 255, 242, 0.2);
+            padding-bottom: 4px;
+        }
+        
+        .data-key { color: var(--text-secondary); text-transform: uppercase; font-size: 0.8rem; }
+        .data-val { color: var(--neon-cyan); }
+        .data-val.active { color: #39ff14; /* Neon green */ text-shadow: 0 0 5px #39ff14; }
+
+        .btn-cyber {
+            margin-top: 30px;
+            position: relative;
+            display: inline-block;
+            padding: 15px 30px;
+            color: var(--neon-cyan);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            overflow: hidden;
+            transition: 0.2s;
+            background: transparent;
+            border: 1px solid var(--neon-cyan);
+        }
+
+        .btn-cyber:hover {
+            background: var(--neon-cyan);
+            color: var(--bg-dark);
+            box-shadow: 0 0 20px rgba(0, 255, 242, 0.6);
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="status-badge"><span class="blinking-cursor"></span>SYSTEM STATUS: NOMINAL</div>
+
+        <h1>Connection Established.</h1>
+
+        <p class="intro-text">
+            > Uplink to S3 bucket successful.<br>
+            > Static asset delivery protocol initiated.<br>
+            > Bucket permissions confirmed secure.
+        </p>
+
+        <div class="terminal-card">
+            <div style="font-family: 'Orbitron'; font-size: 0.8rem; color: var(--neon-pink); margin-bottom: 15px; letter-spacing: 1px;">
+                // DIAGNOSTIC DATA STREAM
+            </div>
+            <div class="data-row">
+                <span class="data-key">Host Protocol</span>
+                <span class="data-val active">S3 STATIC WEB</span>
+            </div>
+            <div class="data-row">
+                <span class="data-key">Public Access Block</span>
+                <span class="data-val active">OFF (READ ONLY)</span>
+            </div>
+            <div class="data-row" style="border-bottom: none;">
+                <span class="data-key">Latency Check</span>
+                <span class="data-val" id="latency">CALCULATING...</span>
+            </div>
+        </div>
+
+        <a href="https://s3.console.aws.amazon.com/s3/" class="btn-cyber" target="_blank">ACCESS CONSOLE_</a>
+    </div>
+
+    <script>
+        // Simple fake latency calculator for the sci-fi feel
+        setTimeout(() => {
+            const lat = Math.floor(Math.random() * (120 - 40 + 1) + 40);
+            document.getElementById('latency').innerText = lat + "ms // OPTIMIZED";
+        }, 2000);
+    </script>
+</body>
+</html>
